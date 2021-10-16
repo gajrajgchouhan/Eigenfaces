@@ -36,7 +36,7 @@ Face recognition is used everywhere, now a days deep learning techniques are als
 
 ## Installation
 
-1. Download image dataset (greyscale version) given at https://conradsanderson.id.au/lfwcrop/ and extract it. The dataset contains 64x64 images.
+1. Download image dataset (grayscale version) given at https://conradsanderson.id.au/lfwcrop/ and extract it. The dataset contains 64x64 images.
 
 2. Install required python modules.
 
@@ -50,16 +50,16 @@ Face recognition is used everywhere, now a days deep learning techniques are als
 
 3. Run the eigenfaces.py and app.py.
 
-4. Upload the image and get classification.
+4. Open the app, upload the image and get classification. By default top 150 eigenvectors are used.
 
 ## Preprocessing
 
 All the faces should be having same size, in grayscale format.
-Subject should be in the center, less background in the image, the better.
+Subject should be in the center; less background in the image, the better.
 
 ## Working
 
-I have saved in `npy` binary files.
+I have saved model in `npy` binary files.
 
 Also the dataset has every person having 70 images atleast.
 This can be changed accordingly to reduce computational power.
