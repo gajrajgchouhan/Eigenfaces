@@ -83,3 +83,5 @@ App uses Flask as web server; opencv, numpy for computations; plotly as plotting
 ## References
 
 1. Matthew Turk and Alex Pentland. 1991. Eigenfaces for recognition. J. Cognitive Neuroscience 3, 1 (Winter 1991), 71–86. DOI:https://doi.org/10.1162/jocn.1991.3.1.71
+
+2. https://www.geeksforgeeks.org/ml-face-recognition-using-eigenfaces-pca-algorithm/
