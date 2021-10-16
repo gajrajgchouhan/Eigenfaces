@@ -76,6 +76,9 @@ App uses Flask as web server; opencv, numpy for computations; plotly as plotting
 
 2. Learn streamlit and adapt it here.
 
+    - Possible to add webcam.
+    - Slider for K, etc.
+
 3. Change K from page for eigenvectors.
 
 4. Decrease minimum frequency from 70 to 40 (make it dynamic :p)
