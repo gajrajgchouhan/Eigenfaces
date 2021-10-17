@@ -1,15 +1,8 @@
-import os
-from flask import Flask, flash, request, redirect, render_template
 import cv2
 import numpy as np
-from base64 import b64encode
-import json
-import plotly
+import streamlit as st
+from time import time
 import plotly.express as px
-
-
-def imgToBase64(img):
-    return b64encode(cv2.imencode(".jpg", img)[1]).decode()
 
 
 def encodedImgToArray(buf):
@@ -38,41 +31,50 @@ class Model:
         pred = self.y_train[np.argmin(er, axis=0)]
         return pred
 
-    def eigenfaces(self, K):
-        pass
-
-    def plotEigvals(self):
-        fig = px.line(np.cumsum(self.eigval), markers=True)
-        graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-        return graphJSON
+    def eigenfaces(self):
+        faces = self.X_train @ self.eigvec[:, :10]
+        for i in range(10):
+            yield faces[:, i].reshape(64, 64)
 
 
-os.environ["FLASK_ENV"] = "development"
-app = Flask(__name__, template_folder=".")
-app.secret_key = "super secret key"
+def heading(txt, level=5):
+    return "#" * level + " " + txt
+
+
 model = Model()
-graphJSON = model.plotEigvals()
-header = "Plot of cumulative sum of eigenvalues aka variances."
 
+"""
+# Eigenfaces for face recognition
 
-@app.route("/", methods=["GET", "POST"])
-def upload_file():
-    if request.method == "POST":
-        if "file" not in request.files:
-            flash("No file part")
-            return redirect(request.url)
-        file = request.files["file"]
-        if file.filename == "":
-            flash("No selected file")
-            return redirect(request.url)
-        if file:
-            encoded_img = file.read()
-            img = encodedImgToArray(encoded_img)
-            b64_img = imgToBase64(img)
-            result = model.predict(img, 150)
-            return render_template("index.html", header=header, graphJSON=graphJSON, img_data=b64_img, result=result[0])
-    return render_template("index.html", header=header, graphJSON=graphJSON)
+### Upload a file to test this out!
 
+#### Image is resized to 64x64
+#### Dataset (each person appears 70 times in dataset)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+- Ariel Sharon
+- Colin Powell
+- Donald Rumsfeld
+- George W Bush
+- Gerhard Schroeder
+- Hugo Chavez
+- Tony Blair
+
+"""
+
+K = st.slider(("How many top eigenvectors to consider?"), 1, model.no_of_train, 150)
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+    bytes_data = uploaded_file.getvalue()
+    img = encodedImgToArray(bytes_data)
+    st.write(heading("Uploaded pic:"))
+    st.image(img, width=256)
+    with st.spinner("Predicting.....:)"):
+        s = time()
+        result = model.predict(img, K)
+        e = time()
+    st.write(heading(f"Execution time: {e-s:.4f} (seconds)"))
+    st.write(heading(f"Result: {result[0]}"))
+
+st.write(heading("Plot of cumulative sum of eigenvalues aka variances."))
+fig = px.line(np.cumsum(model.eigval), markers=True)
+st.plotly_chart(fig)
