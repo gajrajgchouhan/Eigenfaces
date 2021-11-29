@@ -1,0 +1,33 @@
+body,
+#root {
+    height: 100%;
+    width: 100%;
+    font-family: Roboto;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.table {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    /* max-width: 480px; */
+}
+
+.table > div {
+    margin: 2px;
+    padding: 5px;
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* .mx-auto {
+    margin: ;
+} */
