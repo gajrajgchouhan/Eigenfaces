@@ -6,6 +6,10 @@ export function InputForm() {
     const [isFilePicked, setIsFilePicked] = useState(false);
     const [prediction, setPrediction] = useState(null);
 
+    const clearPrediction = () => {
+        setPrediction(null);
+    };
+
     const readFile = (inputFile) => {
         return new Promise((resolve, reject) => {
             const temporaryFileReader = new FileReader();
@@ -22,7 +26,7 @@ export function InputForm() {
     };
 
     const changeHandler = (event) => {
-        setPrediction(null);
+        clearPrediction();
         const file = event.target.files[0];
         readFile(file).then((result) => {
             const finalFile = result;
