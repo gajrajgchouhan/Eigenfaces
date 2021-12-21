@@ -22,6 +22,7 @@ export function InputForm() {
     };
 
     const changeHandler = (event) => {
+        setPrediction(null);
         const file = event.target.files[0];
         readFile(file).then((result) => {
             const finalFile = result;
@@ -42,10 +43,18 @@ export function InputForm() {
     console.log("inputForm");
     return (
         <>
-            <div>
-                <input type="file" onChange={changeHandler} />
+            <div className="form">
+                <input
+                    type="file"
+                    id="form-input"
+                    onChange={changeHandler}
+                    hidden
+                />
+                <label className="input-label" htmlFor="form-input">
+                    Upload a File
+                </label>
                 {isFilePicked ? (
-                    <div>
+                    <div className="file-picked">
                         <img
                             id="uploadedImage"
                             src={selectedImage}
@@ -55,10 +64,11 @@ export function InputForm() {
                 ) : (
                     <p>Select a file to predict</p>
                 )}
-                <button onClick={handleSubmission}>Submit</button>
+                <button className="form-btn" onClick={handleSubmission}>
+                    Submit
+                </button>
             </div>
-            {prediction !== null ? <div>Predicted {prediction}</div> : <></>}
-            {/* plot variances!!! */}
+            {prediction !== null ? <div>Predicted: {prediction}</div> : <></>}
         </>
     );
 }
