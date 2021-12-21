@@ -38,17 +38,9 @@ Face recognition is used everywhere, now a days deep learning techniques are als
 
 1. Download image dataset (grayscale version) given at https://conradsanderson.id.au/lfwcrop/ and extract it. The dataset contains 64x64 images.
 
-2. Install required python modules.
+2. Install required python modules and node modules.
 
-    ```
-    plotly >= 5.2.1
-    numpy
-    opencv-python
-    sklearn
-    flask
-    ```
-
-3. Run the eigenfaces.py and app.py.
+3. Run the app.py and react app.
 
 4. Open the app, upload the image and get classification. By default top 150 eigenvectors are used.
 
@@ -64,24 +56,17 @@ I have saved model in `npy` binary files.
 Also the dataset has every person having 70 images atleast.
 This can be changed accordingly to reduce computational power.
 
-App uses Flask as web server; opencv, numpy for computations; plotly as plotting library.
+App uses Flask as web server; opencv, numpy for computations and React for the front end.
 
-![Screenshot 1](./images/a.png)
-
-![Screenshot 2](./images/b.png)
+![Screenshot from 2021-12-21 15-33-48](https://user-images.githubusercontent.com/54475046/146911284-23dcb5a4-4d24-400c-887d-8944952d243a.png)
 
 ## Improvements
 
 1. Plot the eigenfaces.
 
-2. Learn streamlit and adapt it here.
-
-    - Possible to add webcam.
-    - Slider for K, etc.
-
 3. Change K from page for eigenvectors.
 
-4. Decrease minimum frequency from 70 to 40 (make it dynamic :p)
+4. Decrease minimum frequency from 70 to 40 (make it dynamic)
 
 ## References
 
